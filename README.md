@@ -1,2 +1,5 @@
-# a-Caesar-cipher
-where you can write a word and it changes it to code
+CAESER CIPHER
+First used by the romans to send secret messages 
+Introduced by JULIUS CAESER
+USE IT TO ENCODE AND  DECODE MESSAGES 
+TRY IT OUT!!!!!!!
