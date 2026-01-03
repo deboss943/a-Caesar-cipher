@@ -1,25 +1,37 @@
-def caesar(text, shift, encrypt=True):
-    if not isinstance(shift, int):
-        return 'Shift must be an integer value.'
-
-    if shift < 1 or shift > 25:
-        return 'Shift must be an integer between 1 and 25.'
-
-    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+def caesar_cipher(text, shift, mode="encrypt"):
+    result = ""
 
     # If decrypting, reverse the shift
-    if not encrypt:
+    if mode == "decrypt":
         shift = -shift
 
-    shifted_alphabet = alphabet[shift:] + alphabet[:shift]
+    for char in text:
+        if char.isalpha():
+            # Determine ASCII offset (A=65, a=97)
+            offset = 65 if char.isupper() else 97
 
-    translation_table = str.maketrans(
-        alphabet + alphabet.upper(),
-        shifted_alphabet + shifted_alphabet.upper()
-    )
+            # Shift character and wrap around alphabet
+            new_char = chr((ord(char) - offset + shift) % 26 + offset)
+            result += new_char
+        else:
+            # Leave numbers, spaces, symbols unchanged
+            result += char
 
-    return text.translate(translation_table)
+    return result
 
+
+# ---- Example Usage ----
+if __name__ == "__main__":
+    message = input("Enter your message: ")
+    shift = int(input("Enter shift value: "))
+    choice = input("Type 'e' to encrypt or 'd' to decrypt: ").lower()
+
+    if choice == "e":
+        print("Encrypted message:", caesar_cipher(message, shift, "encrypt"))
+    elif choice == "d":
+        print("Decrypted message:", caesar_cipher(message, shift, "decrypt"))
+    else:
+        print("Invalid choice.")
 
 # Encrypt
 encrypted_text = caesar('freeCodeCamp', 3)
